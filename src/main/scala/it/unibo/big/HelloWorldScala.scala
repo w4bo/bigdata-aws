@@ -1,15 +1,25 @@
 package it.unibo.big
 
-import org.slf4j.{Logger, LoggerFactory}
+import org.apache.spark.sql.SparkSession
 
 object HelloWorldScala {
-  val L: Logger = LoggerFactory.getLogger("Test")
 
   /**
-   * Hello, world!
    * @param args arguments
    */
   def main(args: Array[String]): Unit = {
-    L.debug("Hello, World!")
+    val sparkSession = SparkSession.builder()
+        .appName("WordCount")
+        .enableHiveSupport()
+        .getOrCreate()
+    val sc = sparkSession.sparkContext
+    sc.textFile(args(0))
+        .flatMap(r => r.split(' '))
+        .filter(_.nonEmpty)
+        .map(r => (r.toLowerCase, 1))
+        .reduceByKey((a, b) => a + b)
+        .sortBy(-_._2)
+        .take(100)
+        .foreach { println(_) }
   }
 }
