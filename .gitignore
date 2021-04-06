@@ -1,3 +1,7 @@
+.run/
+aws/
+sam-installation/
+.aws-sam/
 outputs/*.csv
 results/dummy.pdf
 metastore_db/
