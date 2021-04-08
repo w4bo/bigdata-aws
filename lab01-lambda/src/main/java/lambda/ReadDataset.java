@@ -19,7 +19,11 @@ public class ReadDataset {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * Read the dataset and invoke the Preprocess lambda function
+     * @param args ignored here
+     */
+    public static void main(final String[] args) {
         invokeLambda("Preprocess", read());
     }
 }

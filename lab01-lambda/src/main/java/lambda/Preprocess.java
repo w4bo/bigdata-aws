@@ -11,8 +11,16 @@ import java.util.List;
 import static lambda.Utils.STATUS_200;
 import static lambda.Utils.invokeLambda;
 
+/**
+ * Preprocess the Sales dataset
+ */
 public class Preprocess implements RequestHandler<Object, String> {
 
+    /**
+     * Unnest the product sales
+     * @param jsonObject dataset to modify as a JSON object
+     * @return modified dataset
+     */
     public List<List<String>> unnest(final String jsonObject) {
         try {
             final JSONArray sales = new JSONArray(jsonObject);

@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
 import static lambda.Utils.STATUS_200;
 import static lambda.Utils.invokeLambda;
 
+/**
+ * Get the frequent itemsets with their support
+ */
 public class FIM implements RequestHandler<List<List<String>>, String> {
     /**
      * The transactional dataset
@@ -37,7 +40,10 @@ public class FIM implements RequestHandler<List<List<String>>, String> {
     }
 
     /**
-     * Run the algorithm
+     * Run the Apriori algorithm
+     * @param dataset transactional dataset
+     * @param support minimum (absolute) number of transactions
+     * @return the list of frequent itemsets along with their support
      */
     public List<Pair<List<String>, Integer>> run(final List<List<String>> dataset, final int support) {
         this.dataset = dataset;
@@ -81,6 +87,9 @@ public class FIM implements RequestHandler<List<List<String>>, String> {
         itemsets = new ArrayList<>(tempCandidates);
     }
 
+    /**
+     * Filter the itemsets
+     */
     private void getFrequentItemsets() {
         itemsets =
             itemsets
