@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y git vim openjdk-8-jdk yakuake apt-transport-https ca-certificates curl gnupg lsb-release
+sudo apt install -y git vim openjdk-8-jdk python3 yakuake apt-transport-https ca-certificates curl gnupg lsb-release
 # configure docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list 
