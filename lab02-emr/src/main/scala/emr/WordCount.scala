@@ -12,7 +12,7 @@ object WordCount {
         Logger.getLogger("org").setLevel(Level.OFF)
         Logger.getLogger("akka").setLevel(Level.OFF)
         val sparkSession = SparkSession.builder()
-            .master(if (args.isEmpty) { "local" } else { "client" })
+            .master(if (args.isEmpty) { "local" } else { "yarn" })
             .appName("WordCount")
             .getOrCreate()
         val sc = sparkSession.sparkContext
