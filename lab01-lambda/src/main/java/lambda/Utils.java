@@ -7,16 +7,20 @@ import com.amazonaws.services.lambda.model.InvokeResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class Utils {
+public final class Utils {
+    private Utils() {
+    }
+
     /**
-     * Just a constant for the "OK" response
+     * Just a constant for the "OK" response.
      */
     public static final String STATUS_200 = "{\"statusCode\": \"200\"}";
 
     /**
-     * Invoke the specified lambda function
+     * Invoke the specified lambda function.
+     *
      * @param functionName function name
-     * @param payload content of the request
+     * @param payload      content of the request
      */
     public static void invokeLambda(final String functionName, final Object payload) {
         final Gson gson = new GsonBuilder().setPrettyPrinting().create();

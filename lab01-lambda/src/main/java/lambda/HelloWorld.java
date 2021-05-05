@@ -8,8 +8,8 @@ import com.google.gson.GsonBuilder;
 
 import java.util.Map;
 
-public class HelloWorld implements RequestHandler<Map<String, String>, String> {
-    final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+public final class HelloWorld implements RequestHandler<Map<String, String>, String> {
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
     public String handleRequest(final Map<String, String> event, final Context context) {

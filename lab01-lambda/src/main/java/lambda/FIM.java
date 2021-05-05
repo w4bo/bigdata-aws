@@ -12,35 +12,42 @@ import static lambda.Utils.STATUS_200;
 import static lambda.Utils.invokeLambda;
 
 /**
- * Get the frequent itemsets with their support
+ * Get the frequent itemsets with their support.
  */
-public class FIM implements RequestHandler<List<List<String>>, String> {
+public final class FIM implements RequestHandler<List<List<String>>, String> {
+    @Override
+    public String handleRequest(final List<List<String>> input, final Context context) {
+        invokeLambda("StoreDB", run(input, 2));
+        return STATUS_200;
+    }
+
     /**
-     * The transactional dataset
+     * The transactional dataset.
      */
     private List<List<String>> dataset;
     /**
-     * The minimum support
+     * The minimum support.
      */
     private int support;
     /**
-     * The list of current itemsets
+     * The list of current itemsets.
      */
     private List<Pair<List<String>, Integer>> itemsets;
     /**
-     * The accumulator of frequent itemsets
+     * The accumulator of frequent itemsets.
      */
     private final List<Pair<List<String>, Integer>> itemsetAccumulator;
 
     /**
-     * Set up Apriori
+     * Set up Apriori.
      */
     public FIM() {
         this.itemsetAccumulator = new ArrayList<>();
     }
 
     /**
-     * Run the Apriori algorithm
+     * Run the Apriori algorithm.
+     *
      * @param dataset transactional dataset
      * @param support minimum (absolute) number of transactions
      * @return the list of frequent itemsets along with their support
@@ -64,18 +71,18 @@ public class FIM implements RequestHandler<List<List<String>>, String> {
     }
 
     /**
-     * If n is the size of the current itemsets, generate all possible itemsets of size n + 1 from pairs of current itemsets
+     * If n is the size of the current itemsets, generate all possible itemsets of size n + 1 from pairs of current itemsets.
      */
     private void createNewItemsetsFromPreviousOnes() {
         final Set<Pair<List<String>, Integer>> tempCandidates = new HashSet<>(); // temporary candidates
         for (int i = 0; i < itemsets.size(); i++) {
             for (int j = i + 1; j < itemsets.size(); j++) {
-                final List<String> X = itemsets.get(i).getLeft();
-                final List<String> Y = itemsets.get(j).getLeft();
-                final List<String> newCand = Lists.newArrayList(X);
+                final List<String> x = itemsets.get(i).getLeft();
+                final List<String> y = itemsets.get(j).getLeft();
+                final List<String> newCand = Lists.newArrayList(x);
                 final int prevSize = newCand.size();
-                Y.forEach(s1 -> {
-                    if (!X.contains(s1)) {
+                y.forEach(s1 -> {
+                    if (!x.contains(s1)) {
                         newCand.add(s1);
                     }
                 });
@@ -88,20 +95,14 @@ public class FIM implements RequestHandler<List<List<String>>, String> {
     }
 
     /**
-     * Filter the itemsets
+     * Filter the itemsets.
      */
     private void getFrequentItemsets() {
         itemsets =
-            itemsets
-                .stream()
-                .map(i -> Pair.of(i.getLeft(), (int) dataset.stream().filter(t -> t.containsAll(i.getLeft())).count()))
-                .filter(i -> i.getRight() >= support)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public String handleRequest(List<List<String>> input, Context context) {
-        invokeLambda("StoreDB", run(input, 2));
-        return STATUS_200;
+                itemsets
+                        .stream()
+                        .map(i -> Pair.of(i.getLeft(), (int) dataset.stream().filter(t -> t.containsAll(i.getLeft())).count()))
+                        .filter(i -> i.getRight() >= support)
+                        .collect(Collectors.toList());
     }
 }

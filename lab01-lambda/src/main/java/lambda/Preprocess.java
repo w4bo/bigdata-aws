@@ -12,12 +12,18 @@ import static lambda.Utils.STATUS_200;
 import static lambda.Utils.invokeLambda;
 
 /**
- * Preprocess the Sales dataset
+ * Preprocess the Sales dataset.
  */
-public class Preprocess implements RequestHandler<Object, String> {
+public final class Preprocess implements RequestHandler<Object, String> {
+    @Override
+    public String handleRequest(final Object input, final Context context) {
+        invokeLambda("FIM", unnest(input.toString()));
+        return STATUS_200;
+    }
 
     /**
-     * Unnest the product sales
+     * Unnest the product sales.
+     *
      * @param jsonObject dataset to modify as a JSON object
      * @return modified dataset
      */
@@ -37,11 +43,5 @@ public class Preprocess implements RequestHandler<Object, String> {
             e.printStackTrace();
             return new ArrayList<>();
         }
-    }
-
-    @Override
-    public String handleRequest(final Object input, final Context context) {
-        invokeLambda("FIM", unnest(input.toString()));
-        return STATUS_200;
     }
 }
