@@ -5,7 +5,7 @@ This repo contains two projects (i.e., exercises).
 - lab01
 - lab02
 
-Projects are built with Gradle, import them into IntelliJ IDEA as Gradle projects. We cannot use Eclipse, since the AWS Toolkit plugin is only available for IntelliJ.
+Projects are built with Gradle, import them into IntelliJ IDEA as *Gradle projects*. We cannot use Eclipse, since the AWS Toolkit plugin is only available for IntelliJ.
 
 ## `Lambda` - lab01
 
