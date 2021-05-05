@@ -1,6 +1,6 @@
 # Big data on cloud
 
-This repos contains two projects (i.e., exercises).
+This repo contains two projects (i.e., exercises).
 
 - lab01
 - lab02
@@ -32,7 +32,7 @@ lab02
 
 ### Running `WordCount`
 
-0. Once created the cluster, rember to allow incoming traffic on port 22
+0. Once created the cluster, remember to allow incoming traffic on port 22
 0. Create an EC2 key-pair named `bigdata.pem`
 0. Connect to the cluster using SSH
 0. Install git and clone this repo on the cluster
