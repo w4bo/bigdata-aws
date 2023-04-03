@@ -7,12 +7,13 @@ plugins {
     id 'com.github.alisiikh.scalastyle' version '3.4.1'
 }
 
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
 shadowJar {
     zip64 = true
-    dependencies {
-        exclude(dependency('org.apache.spark:spark-core_2.12:3.0.1'))
-        exclude(dependency('org.apache.spark:spark-sql_2.12:3.0.1'))
-    }
 }
 
 javadoc { failOnError true }
@@ -27,7 +28,6 @@ scalastyle {
 repositories {
     jcenter()
     mavenCentral()
-    maven { url "https://repository.cloudera.com/artifactory/cloudera-repos/" }
 }
 
 idea {
@@ -38,11 +38,6 @@ idea {
 }
 
 dependencies {
-    implementation 'org.scala-lang:scala-library:2.12.13'
-    implementation 'org.scala-lang:scala-reflect:2.12.13'
-    implementation 'org.scala-lang:scala-compiler:2.12.13'
-    implementation 'org.apache.spark:spark-core_2.12:3.0.1'
-    implementation 'org.apache.spark:spark-sql_2.12:3.0.1'
     implementation 'org.slf4j:slf4j-api:1.7.30'
     testCompileOnly 'org.slf4j:slf4j-simple:1.7.30'
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'

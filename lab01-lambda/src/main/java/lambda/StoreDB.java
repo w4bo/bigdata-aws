@@ -13,24 +13,24 @@ import java.util.HashMap;
 import static lambda.Utils.STATUS_200;
 
 /**
- * Store the itemsets into DynamoDB. NB, it requires 256MB RAM to instance the client
+ * Store the itemsets into DynamoDB. NB, it requires 256MB RAM to instance the client.
  */
-public class StoreDB implements RequestHandler<Object, String> {
-    private static final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
+public final class StoreDB implements RequestHandler<Object, String> {
+    private static final AmazonDynamoDB DDBS = AmazonDynamoDBClientBuilder.defaultClient();
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
     public String handleRequest(final Object input, final Context context) {
         // initialize the values
-        final HashMap<String, AttributeValue> item_values = new HashMap<>();
+        final HashMap<String, AttributeValue> itemValues = new HashMap<>();
         // initialize the "dataset" attribute
-        item_values.put("dataset", new AttributeValue("sales"));
+        itemValues.put("dataset", new AttributeValue("sales"));
         // initialize the "timestamp" attribute
-        item_values.put("timestamp", new AttributeValue("" + System.currentTimeMillis()));
+        itemValues.put("timestamp", new AttributeValue("" + System.currentTimeMillis()));
         // initialize the "itemsets" attribute
-        item_values.put("itemsets", new AttributeValue(gson.toJson(input)));
+        itemValues.put("itemsets", new AttributeValue(gson.toJson(input)));
         // put the item
-        ddb.putItem("frequent-sales", item_values);
+        DDBS.putItem("frequent-sales", itemValues);
         return STATUS_200;
     }
 }

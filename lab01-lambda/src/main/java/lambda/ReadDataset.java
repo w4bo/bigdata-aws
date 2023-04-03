@@ -6,9 +6,13 @@ import java.nio.file.Paths;
 
 import static lambda.Utils.invokeLambda;
 
-public class ReadDataset {
+public final class ReadDataset {
+
+    private ReadDataset() {
+    }
+
     /**
-     * @return the content of the specified dataset
+     * @return the content of the specified dataset.
      */
     public static String read() {
         try {
@@ -19,7 +23,12 @@ public class ReadDataset {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * Read the dataset and invoke the Preprocess lambda function.
+     *
+     * @param args ignored here
+     */
+    public static void main(final String[] args) {
         invokeLambda("Preprocess", read());
     }
 }
